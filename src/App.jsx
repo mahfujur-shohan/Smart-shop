@@ -1,7 +1,11 @@
+import AnnouncementBar from "./components/AnnouncementBar";
+import Navbar from "./components/Navbar";
+
 function App() {
   return (
     <>
-      <p>hello from react</p>
+      <AnnouncementBar />
+      <Navbar />
     </>
   );
 }
