@@ -7,6 +7,7 @@ import ProductList from "./components/ProductList";
 
 function App() {
   const [cartData, setCartData] = useState([]);
+  const [quantity, setQuantity] = useState(1);
 
   function handleAddToCart(product) {
     setCartData([...cartData, product]);
@@ -14,6 +15,18 @@ function App() {
 
   function handleDeleteItemToCart(id) {
     setCartData(cartData.filter((p) => p.id !== id));
+  }
+
+  function handlePlusQuantity(product) {
+    if (quantity < product.stock) {
+      setQuantity(quantity + 1);
+    }
+  }
+
+  function handleMinusQuantity() {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
   }
 
   return (
@@ -25,6 +38,9 @@ function App() {
           onAddToCart={handleAddToCart}
           onDeleteItemToCart={handleDeleteItemToCart}
           cartData={cartData}
+          onPlusQuantity={handlePlusQuantity}
+          onMinusQuantity={handleMinusQuantity}
+          quantity={quantity}
         />
       </main>
       <NewsletterSection />

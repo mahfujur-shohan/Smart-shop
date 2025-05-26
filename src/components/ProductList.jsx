@@ -6,6 +6,9 @@ export default function ProductList({
   onAddToCart,
   cartData,
   onDeleteItemToCart,
+  quantity,
+  onPlusQuantity,
+  onMinusQuantity,
 }) {
   return (
     <>
@@ -40,6 +43,9 @@ export default function ProductList({
         {/* Cart Section (1/3 width on large screens) */}
         <CartDetails
           cartData={cartData}
+          quantity={quantity}
+          onPlusQuantity={onPlusQuantity}
+          onMinusQuantity={onMinusQuantity}
           onDeleteItemToCart={onDeleteItemToCart}
         />
       </div>

@@ -1,6 +1,12 @@
 import CartItem from "./CartItem";
 
-export default function CartDetails({ cartData, onDeleteItemToCart }) {
+export default function CartDetails({
+  cartData,
+  onDeleteItemToCart,
+  quantity,
+  onPlusQuantity,
+  onMinusQuantity,
+}) {
   return (
     <>
       <div className="lg:col-span-1">
@@ -10,6 +16,9 @@ export default function CartDetails({ cartData, onDeleteItemToCart }) {
           {cartData.map((product) => (
             <CartItem
               key={product.id}
+              quantity={quantity}
+              onPlusQuantity={onPlusQuantity}
+              onMinusQuantity={onMinusQuantity}
               product={product}
               onDeleteItemToCart={onDeleteItemToCart}
             />

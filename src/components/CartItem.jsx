@@ -1,6 +1,12 @@
 import { getImageUrl } from "../utils/utils";
 
-export default function CartItem({ product, onDeleteItemToCart }) {
+export default function CartItem({
+  product,
+  onDeleteItemToCart,
+  quantity,
+  onPlusQuantity,
+  onMinusQuantity,
+}) {
   return (
     <>
       <div className="flex items-start space-x-4 pb-4 border-b border-gray-200 mb-4">
@@ -28,11 +34,17 @@ export default function CartItem({ product, onDeleteItemToCart }) {
           <div className="flex justify-between items-center mt-2">
             <p className="font-bold">${product.price}</p>
             <div className="flex items-center space-x-2">
-              <button className="w-6 h-6 bg-gray-100 rounded flex items-center justify-center">
+              <button
+                onClick={onMinusQuantity}
+                className="w-6 h-6 bg-gray-100 rounded flex items-center justify-center"
+              >
                 −
               </button>
-              <span className="text-sm">1</span>
-              <button className="w-6 h-6 bg-gray-100 rounded flex items-center justify-center">
+              <span className="text-sm">{quantity}</span>
+              <button
+                onClick={() => onPlusQuantity(product)}
+                className="w-6 h-6 bg-gray-100 rounded flex items-center justify-center"
+              >
                 +
               </button>
             </div>
