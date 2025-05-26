@@ -2,7 +2,11 @@ import { products } from "../data/data";
 import CartDetails from "./CartDetails";
 import Product from "./Product";
 
-export default function ProductList() {
+export default function ProductList({
+  onAddToCart,
+  cartData,
+  onDeleteItemToCart,
+}) {
   return (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -23,12 +27,21 @@ export default function ProductList() {
           {/* Products Grid */}
           <div className="product-grid">
             {products.map((product) => (
-              <Product product={product} />
+              <Product
+                key={product.id}
+                onAddToCart={onAddToCart}
+                isAddToCart={cartData.includes(product)}
+                onDeleteItemToCart={onDeleteItemToCart}
+                product={product}
+              />
             ))}
           </div>
         </div>
         {/* Cart Section (1/3 width on large screens) */}
-        <CartDetails />
+        <CartDetails
+          cartData={cartData}
+          onDeleteItemToCart={onDeleteItemToCart}
+        />
       </div>
     </>
   );
