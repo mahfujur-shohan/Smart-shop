@@ -1,4 +1,5 @@
 import { products } from "../data/data";
+import { isInCart } from "../utils/utils";
 import CartDetails from "./CartDetails";
 import Product from "./Product";
 
@@ -6,7 +7,6 @@ export default function ProductList({
   onAddToCart,
   cartData,
   onDeleteItemToCart,
-  quantity,
   onPlusQuantity,
   onMinusQuantity,
 }) {
@@ -33,17 +33,15 @@ export default function ProductList({
               <Product
                 key={product.id}
                 onAddToCart={onAddToCart}
-                isAddToCart={cartData.includes(product)}
+                isAddToCart={isInCart(cartData, product.id)}
                 onDeleteItemToCart={onDeleteItemToCart}
                 product={product}
               />
             ))}
           </div>
         </div>
-        {/* Cart Section (1/3 width on large screens) */}
         <CartDetails
           cartData={cartData}
-          quantity={quantity}
           onPlusQuantity={onPlusQuantity}
           onMinusQuantity={onMinusQuantity}
           onDeleteItemToCart={onDeleteItemToCart}

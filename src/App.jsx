@@ -7,25 +7,52 @@ import ProductList from "./components/ProductList";
 
 function App() {
   const [cartData, setCartData] = useState([]);
-  const [quantity, setQuantity] = useState(1);
 
   function handleAddToCart(product) {
-    setCartData([...cartData, product]);
+    setCartData([
+      ...cartData,
+      {
+        itemId: product.id,
+        quantity: 1,
+        stock: product.stock,
+        cover: product.cover,
+        name: product.name,
+        price: product.price,
+      },
+    ]);
   }
 
   function handleDeleteItemToCart(id) {
-    setCartData(cartData.filter((p) => p.id !== id));
+    setCartData(cartData.filter((p) => p.itemId !== id));
   }
 
-  function handlePlusQuantity(product) {
-    if (quantity < product.stock) {
-      setQuantity(quantity + 1);
+  function handlePlusQuantity(item) {
+    if (item.quantity < item.stock) {
+      setCartData((prevCartData) =>
+        prevCartData.map((i) => {
+          if (i.itemId === item.itemId) {
+            return {
+              ...i,
+              quantity: i.quantity + 1,
+            };
+          } else return i;
+        })
+      );
     }
   }
 
-  function handleMinusQuantity() {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
+  function handleMinusQuantity(item) {
+    if (item.quantity > 1) {
+      setCartData((prevCartData) =>
+        prevCartData.map((i) => {
+          if (i.itemId === item.itemId) {
+            return {
+              ...i,
+              quantity: i.quantity - 1,
+            };
+          } else return i;
+        })
+      );
     }
   }
 
@@ -40,7 +67,6 @@ function App() {
           cartData={cartData}
           onPlusQuantity={handlePlusQuantity}
           onMinusQuantity={handleMinusQuantity}
-          quantity={quantity}
         />
       </main>
       <NewsletterSection />

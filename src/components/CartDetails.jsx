@@ -3,23 +3,30 @@ import CartItem from "./CartItem";
 export default function CartDetails({
   cartData,
   onDeleteItemToCart,
-  quantity,
   onPlusQuantity,
   onMinusQuantity,
 }) {
+  const subtotal = cartData.reduce(
+    (acc, item) => acc + item.quantity * item.price,
+    0
+  );
+
+  const discount = subtotal * 0.2;
+  const afterDiscount = subtotal - discount;
+  const total = afterDiscount + 15;
+
   return (
     <>
       <div className="lg:col-span-1">
         <div className="bg-white rounded-lg p-6 border border-gray-200">
           <h2 className="text-2xl font-bold mb-6">YOUR CART</h2>
 
-          {cartData.map((product) => (
+          {cartData.map((item) => (
             <CartItem
-              key={product.id}
-              quantity={quantity}
+              key={item.itemId}
               onPlusQuantity={onPlusQuantity}
               onMinusQuantity={onMinusQuantity}
-              product={product}
+              item={item}
               onDeleteItemToCart={onDeleteItemToCart}
             />
           ))}
@@ -30,7 +37,7 @@ export default function CartDetails({
             <div className="space-y-2 mb-4">
               <div className="flex justify-between">
                 <span className="text-gray-600">Subtotal</span>
-                <span className="font-medium">$565</span>
+                <span className="font-medium">${subtotal}</span>
               </div>
               <div className="flex justify-between text-red-500">
                 <span>Discount (-20%)</span>
@@ -42,7 +49,7 @@ export default function CartDetails({
               </div>
               <div className="flex justify-between font-bold text-lg pt-2 border-t border-gray-200">
                 <span>Total</span>
-                <span>$467</span>
+                <span>${total}</span>
               </div>
             </div>
             {/* Promo Code */}
