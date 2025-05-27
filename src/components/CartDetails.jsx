@@ -49,7 +49,7 @@ export default function CartDetails({
               </div>
               <div className="flex justify-between font-bold text-lg pt-2 border-t border-gray-200">
                 <span>Total</span>
-                <span>${total}</span>
+                <span>${subtotal > 0 ? total : 0}</span>
               </div>
             </div>
             {/* Promo Code */}
