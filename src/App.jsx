@@ -9,6 +9,24 @@ import ProductList from "./components/ProductList";
 function App() {
   const [products, setProducts] = useState(initialProducts);
   const [cartData, setCartData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterStatus, setFilterStatus] = useState("Most Popular");
+
+  function getSortedProducts() {
+    let sortedProducts = products.filter((p) =>
+      p.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    if (filterStatus === "Most Popular") {
+      sortedProducts.sort((a, b) => b.rating - a.rating);
+    } else if (filterStatus === "Price: Low to High") {
+      sortedProducts.sort((a, b) => a.price - b.price);
+    } else if (filterStatus === "Price: High to Low") {
+      sortedProducts.sort((a, b) => b.price - a.price);
+    }
+
+    return sortedProducts;
+  }
 
   function handleAddToCart(product) {
     setProducts((prevProducts) =>
@@ -110,10 +128,12 @@ function App() {
   return (
     <>
       <AnnouncementBar />
-      <Navbar />
+      <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <main className="container mx-auto px-4 md:px-8 py-8">
         <ProductList
-          products={products}
+          filterStatus={filterStatus}
+          setFilterStatus={setFilterStatus}
+          getSortedProducts={getSortedProducts}
           onAddToCart={handleAddToCart}
           onDeleteItemToCart={handleDeleteItemToCart}
           cartData={cartData}

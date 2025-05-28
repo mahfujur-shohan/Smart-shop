@@ -1,31 +1,17 @@
-import { useState } from "react";
 import { isInCart } from "../utils/utils";
 import CartDetails from "./CartDetails";
 import Product from "./Product";
 
 export default function ProductList({
-  products,
+  filterStatus,
+  setFilterStatus,
+  getSortedProducts,
   onAddToCart,
   cartData,
   onDeleteItemToCart,
   onPlusQuantity,
   onMinusQuantity,
 }) {
-  const [filterStatus, setFilterStatus] = useState("Most Popular");
-
-  function getSortedProducts() {
-    let sortedProducts = [...products];
-    if (filterStatus === "Most Popular") {
-      sortedProducts.sort((a, b) => b.rating - a.rating);
-    } else if (filterStatus === "Price: Low to High") {
-      sortedProducts.sort((a, b) => a.price - b.price);
-    } else if (filterStatus === "Price: High to Low") {
-      sortedProducts.sort((a, b) => b.price - a.price);
-    }
-
-    return sortedProducts;
-  }
-
   return (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -48,6 +34,9 @@ export default function ProductList({
           </div>
           {/* Products Grid */}
           <div className="product-grid">
+            {getSortedProducts().length === 0 && (
+              <p className="font-bold text-red-500">No Products to Show</p>
+            )}
             {getSortedProducts().map((product) => (
               <Product
                 key={product.id}
