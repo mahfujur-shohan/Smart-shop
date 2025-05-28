@@ -8,7 +8,7 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
           </a>
 
           <nav className="hidden md:flex space-x-6">
-            <a href="#" className="hover:text-gray-500 transition-colors">
+            {/* <a href="#" className="hover:text-gray-500 transition-colors">
               Shop
             </a>
             <a href="#" className="hover:text-gray-500 transition-colors">
@@ -19,7 +19,7 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
             </a>
             <a href="#" className="hover:text-gray-500 transition-colors">
               Brands
-            </a>
+            </a> */}
           </nav>
 
           <div className="flex items-center space-x-4">

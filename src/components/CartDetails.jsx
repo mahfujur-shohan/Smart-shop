@@ -88,6 +88,7 @@ export default function CartDetails({
             {/* Checkout Button */}
             <a
               href="#"
+              onClick={() => alert("Not implemented yet")}
               className="block bg-black text-white text-center py-3 rounded-md hover:bg-gray-800 transition-colors"
             >
               Go to Checkout

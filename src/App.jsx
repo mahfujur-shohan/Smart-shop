@@ -14,9 +14,11 @@ function App() {
 
   function getSortedProducts() {
     let sortedProducts = products.filter((p) =>
+      //for search
       p.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    //for sorting
     if (filterStatus === "Most Popular") {
       sortedProducts.sort((a, b) => b.rating - a.rating);
     } else if (filterStatus === "Price: Low to High") {
