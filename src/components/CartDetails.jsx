@@ -21,6 +21,10 @@ export default function CartDetails({
         <div className="bg-white rounded-lg p-6 border border-gray-200">
           <h2 className="text-2xl font-bold mb-6">YOUR CART</h2>
 
+          {cartData.length === 0 && (
+            <p className="font-bold text-red-500">Cart is Empty</p>
+          )}
+
           {cartData.map((item) => (
             <CartItem
               key={item.itemId}

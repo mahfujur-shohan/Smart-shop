@@ -1,15 +1,31 @@
-import { products } from "../data/data";
+import { useState } from "react";
 import { isInCart } from "../utils/utils";
 import CartDetails from "./CartDetails";
 import Product from "./Product";
 
 export default function ProductList({
+  products,
   onAddToCart,
   cartData,
   onDeleteItemToCart,
   onPlusQuantity,
   onMinusQuantity,
 }) {
+  const [filterStatus, setFilterStatus] = useState("Most Popular");
+
+  function getSortedProducts() {
+    let sortedProducts = [...products];
+    if (filterStatus === "Most Popular") {
+      sortedProducts.sort((a, b) => b.rating - a.rating);
+    } else if (filterStatus === "Price: Low to High") {
+      sortedProducts.sort((a, b) => a.price - b.price);
+    } else if (filterStatus === "Price: High to Low") {
+      sortedProducts.sort((a, b) => b.price - a.price);
+    }
+
+    return sortedProducts;
+  }
+
   return (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -19,17 +35,20 @@ export default function ProductList({
             <h2 className="text-2xl font-bold">Your Products</h2>
             <div className="flex items-center space-x-2">
               <span className="text-sm">Sort by:</span>
-              <select className="border rounded-md px-2 py-1 text-sm">
-                <option>Most Popular</option>
-                <option>Newest</option>
-                <option>Price: Low to High</option>
-                <option>Price: High to Low</option>
+              <select
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+                className="border rounded-md px-2 py-1 text-sm"
+              >
+                <option value="Most Popular">Most Popular</option>
+                <option value="Price: Low to High">Price: Low to High</option>
+                <option value="Price: High to Low">Price: High to Low</option>
               </select>
             </div>
           </div>
           {/* Products Grid */}
           <div className="product-grid">
-            {products.map((product) => (
+            {getSortedProducts().map((product) => (
               <Product
                 key={product.id}
                 onAddToCart={onAddToCart}

@@ -1,4 +1,4 @@
-export const products = [
+export const initialProducts = [
   {
     id: crypto.randomUUID(),
     cover: "image 1.png",
